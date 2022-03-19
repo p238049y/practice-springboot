@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 
-/**
- * 全てのControllerで共通処理を定義
- */
+///**
+// * 全てのControllerで共通処理を定義
+// */
 @ControllerAdvice
 public class WebMvcControllerAdvice {
 
