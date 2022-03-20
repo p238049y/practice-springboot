@@ -20,3 +20,14 @@ public SampleController(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
 }
 ```
+
+## sql文について(セクション１−20)
+- 以下は正しいSQLが走る
+```sql
+SELECT id, name, email " + "FROM inquiry WHERE id = 1
+```
+- 以下はエラーになる
+```sql
+SELECT id, name, email" + "FROM inquiry WHERE id = 1
+```
+→ emailの後にスペースを空けないと、SELECT id, name, emailFROM inquiry WHERE id = 1 となり、正しく実行されない
