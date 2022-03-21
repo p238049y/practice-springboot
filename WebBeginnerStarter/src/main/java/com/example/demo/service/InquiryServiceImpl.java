@@ -1,41 +1,24 @@
 package com.example.demo.service;
 
+import com.example.demo.dao.InquiryDao;
+import com.example.demo.entity.Inquiry;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.List;
 
-import com.example.demo.entity.Inquiry;
-import com.example.demo.repository.InquiryDao;
+public class InquiryServiceImpl implements InquiryService{
+    private final InquiryDao dao;
 
-/*
- * Add an annotation here
- */
-public class InquiryServiceImpl implements InquiryService {
+    @Autowired
+    InquiryServiceImpl(InquiryDao dao) {
+        this.dao = dao;
+    }
 
-	private final InquiryDao dao;
+    public void save(Inquiry inquiry){
+        dao.insertInquiry(inquiry);
+    }
 
-	public InquiryServiceImpl(InquiryDao dao) {
-		this.dao = dao;
-	}
-
-	@Override
-	public void save(Inquiry inquiry) {
-		//hands-on
-	}
-
-//  This method is used in the latter chapter
-//	@Override
-//	public void update(Inquiry inquiry) {
-//
-//		//return dao.updateInquiry(inquiry);
-//		if(dao.updateInquiry(inquiry) == 0) {
-//			throw new InquiryNotFoundException("can't find the same ID");
-//		}
-//	}
-
-	@Override
-	public List<Inquiry> getAll() {
-
-		//hands-on
-
-		return null;
-	}
+    public List <Inquiry> getAll(){
+        return dao.getAll();
+    }
 }
