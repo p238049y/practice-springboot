@@ -9,19 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.demo.service.SurveyService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/survey")
 public class SurveyController {
-	
-	private final SurveyService surveyService;
-	
-	public SurveyController(SurveyService surveyService){
-		this.surveyService = surveyService;
-	}
+
 	
 	@GetMapping
 	public String index(Model model) {
