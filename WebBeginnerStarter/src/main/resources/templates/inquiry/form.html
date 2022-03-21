@@ -12,7 +12,7 @@
 </div>
 <h2 th:text="${complete}"></h2>
 <form method="post" action="#" th:action="@{/inquiry/confirm}" th:object="${inquiryForm}">
-	<label for="name">Name:</label>
+	<label for="name">お名前:</label>
 	<input id="name" name="name" type="text" th:value="*{name}"><br>
 	<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
 	<label for="email">メール:</label>
