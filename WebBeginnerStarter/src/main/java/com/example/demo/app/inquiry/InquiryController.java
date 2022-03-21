@@ -55,14 +55,6 @@ public class InquiryController {
             model.addAttribute("title", "inquiry Form");
             return "inquiry/form";
         }
-
-        Inquiry inquiry = new Inquiry();
-        inquiry.setName(inquiryForm.getName());
-        inquiry.setEmail(inquiryForm.getEmail());
-        inquiry.setContents(inquiry.getContents());
-        inquiry.setCreated(LocalDateTime.now());
-
-        inquiryService.save(inquiry);
         model.addAttribute("title", "Confirm Page");
         return "inquiry/confirm";
     }
@@ -73,6 +65,14 @@ public class InquiryController {
             model.addAttribute("title", "inquiry Form");
             return "inquiry/form";
         }
+
+        Inquiry inquiry = new Inquiry();
+        inquiry.setName(inquiryForm.getName());
+        inquiry.setEmail(inquiryForm.getEmail());
+        inquiry.setContents(inquiryForm.getContents());
+        inquiry.setCreated(LocalDateTime.now());
+
+        inquiryService.save(inquiry);
         redirectAttributes.addFlashAttribute("complete", "Registered!");
         return "redirect:/inquiry/form";
     }
