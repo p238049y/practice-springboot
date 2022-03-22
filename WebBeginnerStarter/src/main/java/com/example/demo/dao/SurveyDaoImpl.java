@@ -3,12 +3,14 @@ package com.example.demo.dao;
 import com.example.demo.entity.Survey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Repository
 public class SurveyDaoImpl implements SurveyDao {
     private final JdbcTemplate jdbcTemplate;
 
