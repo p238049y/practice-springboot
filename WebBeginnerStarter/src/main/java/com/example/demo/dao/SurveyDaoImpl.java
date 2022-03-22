@@ -18,7 +18,7 @@ public class SurveyDaoImpl implements SurveyDao {
     }
 
     @Override
-    public void insertInquiry(Survey survey){
+    public void insertSurvey(Survey survey){
         jdbcTemplate.update("INSERT INTO survey(age, satisfaction, comment, created) VALUES(?, ?, ?, ?)",
                 survey.getAge(), survey.getSatisfaction(), survey.getComment(), survey.getCreated());
     }

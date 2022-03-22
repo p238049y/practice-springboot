@@ -9,6 +9,9 @@ public class Survey {
     private String comment;
     private LocalDateTime created;
 
+    public Survey(){
+    }
+
     public int getId() {
         return id;
     }

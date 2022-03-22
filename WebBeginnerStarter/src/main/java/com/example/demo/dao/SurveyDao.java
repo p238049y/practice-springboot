@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface SurveyDao {
 
-    void insertInquiry(Survey survey);
+    void insertSurvey(Survey survey);
 
     List<Survey> getAll();
 }
