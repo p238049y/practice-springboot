@@ -29,13 +29,13 @@ public class InquiryController {
     public String index(Model model) {
         List<Inquiry> list = inquiryService.getAll();
 
-        Inquiry inquiry = new Inquiry();
-        inquiry.setId(4);
-        inquiry.setName("name");
-        inquiry.setEmail("sample4@example.com");
-        inquiry.setContents("Hello Hello");
-
-        inquiryService.update(inquiry);
+//        Inquiry inquiry = new Inquiry();
+//        inquiry.setId(4);
+//        inquiry.setName("name");
+//        inquiry.setEmail("sample4@example.com");
+//        inquiry.setContents("Hello Hello");
+//
+//        inquiryService.update(inquiry);
 
 //        try {
 //            inquiryService.update(inquiry);
