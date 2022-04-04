@@ -1,22 +1,22 @@
 package com.example.demo.repository;
 
+import com.example.demo.entity.Task;
+
 import java.util.List;
 import java.util.Optional;
 
-import com.example.demo.entity.Task;
+public interface TaskDao {
 
-public interface TaskDao{
+    List<Task> findAll();
 
-	List<Task> findAll();
+    Optional<Task> findById(int id);
 
-	Optional<Task> findById(int id);
+    void insert(Task task);
 
-	void insert(Task task);
+    int update(Task task);
 
-	int update(Task task);
+    int deleteById(int id);
 
-	int deleteById(int id);
-
-	List<Task> findByType(int typeId);
+    List<Task> findByType(int typeId);
 
 }
