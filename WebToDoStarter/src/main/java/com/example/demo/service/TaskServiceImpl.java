@@ -27,7 +27,7 @@ public class TaskServiceImpl implements TaskService {
         //Optional<Task>一件を取得 idが無ければ例外発生　
         try {
             return dao.findById(id);
-        } catch (EmptyResultDataAccessException) {
+        } catch (EmptyResultDataAccessException e) {
             throw new TaskNotFoundException("指定されたタスクが存在しません");
         }
     }
