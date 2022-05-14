@@ -90,7 +90,7 @@ class TaskServiceImplUnitTest {
         try {
             Optional<Task> task0 = taskServiceImpl.getTask(0);
         } catch (TaskNotFoundException e) {
-            assertEquals(e.getMessage(), "指定されたタスクが存在しません");
+            Assertions.assertEquals(e.getMessage(), "指定されたタスクが存在しません");
         }
     }
 
