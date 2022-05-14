@@ -100,14 +100,20 @@ class TaskServiceImplUnitTest {
     void testGetTaskReturnOne() {
 
     	//Taskをデフォルト値でインスタンス化
+        Task task = new Task();
+        Optional<Task> taskOpt = Optional.ofNullable(task);
 
         // モッククラスのI/Oをセット
+        when(dao.findById(1)).thenReturn(taskOpt);
 
         // サービスを実行
+        Optional<Task> taskActual = taskServiceImpl.getTask(1);
 
         // モックの指定メソッドの実行回数を検査
+        verify(dao, times(1)).findById(1);
 
         //Taskが存在していることを確認
+        Assertions.assertTrue(taskActual.isPresent());
 
     }
 
