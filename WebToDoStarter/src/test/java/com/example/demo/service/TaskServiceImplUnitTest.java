@@ -123,8 +123,13 @@ class TaskServiceImplUnitTest {
     void throwNotFoundException() {
 
         // モッククラスのI/Oをセット
+        when(dao.deleteById(1)).thenReturn(0);
 
     	//削除対象が存在しない場合、例外が発生することを検査
-
+        try {
+            taskServiceImpl.deleteById(1);
+        } catch (TaskNotFoundException e) {
+            Assertions.assertEquals(e.getMessage(), "削除するタスクが存在しません");
+        }
     }
 }
