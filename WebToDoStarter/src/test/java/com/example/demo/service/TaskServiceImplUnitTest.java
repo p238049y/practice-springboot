@@ -82,9 +82,14 @@ class TaskServiceImplUnitTest {
     void testGetTaskThrowException() {
 
         // モッククラスのI/Oをセット
+        when(dao.findById(0)).thenThrow(new EmptyResultDataAccessException(1));
 
         //タスクが取得できないとTaskNotFoundExceptionが発生することを検査
-
+        try {
+            Optional<Task> task0 = taskServiceImpl.getTask(0);
+        } catch (TaskNotFoundException e) {
+            assertEquals(e.getMessage(), "指定されたタスクが存在しません");
+        }
     }
 
     @Test // テストケース
