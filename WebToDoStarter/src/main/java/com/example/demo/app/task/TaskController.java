@@ -3,6 +3,7 @@ package com.example.demo.app.task;
 import com.example.demo.entity.Task;
 import com.example.demo.service.TaskService;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -208,17 +209,18 @@ public class TaskController {
      * @return
      */
     //2-4 "/selectType"に対してマッピングを行うアノテーションを記述する
+    @GetMapping("/selectType")
     public String selectType(
             TaskForm taskForm,
             //2-5 Requestパラメータから"typeId"の名前でint idを取得するようにする
-            int id,
+            @RequestParam("typeId") int id,
             Model model) {
 
         //新規登録か更新かを判断する仕掛け
         taskForm.setNewTask(true);
 
         //2-6 taskService.findByTypeを用いてTaskのリストを取得する
-        List<Task> list = null;
+        List<Task> list = taskService.findByType(id);
 
         model.addAttribute("list", list);
         model.addAttribute("title", "タスク一覧");
