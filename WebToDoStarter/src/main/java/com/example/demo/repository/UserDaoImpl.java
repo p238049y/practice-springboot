@@ -28,14 +28,16 @@ public class UserDaoImpl implements UserDao{
 
         for (Map<String, Object> result : resultList) {
             var user = new User();
-            user.setId(result.setInt("id"));
-            user.setUsername(result.getString("username"));
-            user.setEmail(result.getString("email"));
-            user.setPassword(result.getString("password"));
-            user.setEnabled(result.getBoolean("enabled"));
-            user.setAuthorityId(result.getString("authority_id"));
-            user.setTempkey(result.getString("tempkey"));
-            return user;
+            user.setId((int)result.get("id"));
+            user.setUsername((String) result.get("username"));
+            user.setEmail((String)result.get("email"));
+            user.setPassword((String)result.get("password"));
+            user.setEnabled((boolean) result.get("enabled"));
+            user.setAuthorityId((String) result.get("authority_id"));
+            user.setTempKey((String)result.get("tempkey"));
+
+            list.add(user);
         }
+        return list;
     }
 }
