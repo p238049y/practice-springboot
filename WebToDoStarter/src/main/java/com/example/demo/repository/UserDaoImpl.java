@@ -2,12 +2,14 @@ package com.example.demo.repository;
 
 import com.example.demo.entity.User;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class UserDaoImpl implements UserDao{
+@Repository
+public class UserDaoImpl implements UserDao {
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -17,7 +19,7 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public List<User> findAll(){
-        String sql = "SELECT id, username, email, password, enabled, authority_id, tempkey, "
+        String sql = "SELECT id, username, email, password, enabled, authority_id, tempKey, "
                 + "FROM"
                 + "user"
                 + "ORDER BY id";
@@ -26,7 +28,7 @@ public class UserDaoImpl implements UserDao{
 
         List<User> list = new ArrayList<>();
 
-        for (Map<String, Object> result : resultList) {
+        resultList.forEach(result -> {
             var user = new User();
             user.setId((int)result.get("id"));
             user.setUsername((String) result.get("username"));
@@ -34,10 +36,11 @@ public class UserDaoImpl implements UserDao{
             user.setPassword((String)result.get("password"));
             user.setEnabled((boolean) result.get("enabled"));
             user.setAuthorityId((String) result.get("authority_id"));
-            user.setTempKey((String)result.get("tempkey"));
+            user.setTempKey((String)result.get("tempKey"));
 
             list.add(user);
-        }
+        });
+
         return list;
     }
 
@@ -96,7 +99,7 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public int update(User user) {
-        return jdbcTemplate.update("UPDATE user " + "SET username = ?, email = ?, password = ?, enabled = ?, authority_id = ?, tempkey = ? " + "WHERE id = ?",
+        return jdbcTemplate.update("UPDATE user " + "SET username = ?, email = ?, password = ?, enabled = ?, authority_id = ?, tempKey = ? " + "WHERE id = ?",
                 user.getUsername(), user.getEmail(), user.getPassword(), user.isEnabled(), user.getAuthorityId(), user.getTempKey(), user.getId());
     }
 
