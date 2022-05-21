@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import com.example.demo.entity.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,5 +41,18 @@ class UserDaoImplTest {
         Assertions.assertFalse(user2.isEnabled());
         Assertions.assertEquals("USER", user2.getAuthorityId());
         Assertions.assertEquals("key2", user2.getTempKey());
+    }
+
+    @Test
+    @DisplayName("findActiveUsersのテスト")
+    void findActiveUsers() {
+        var list = userDao.findActiveUsers();
+
+        Assertions.assertEquals(3, list.size());
+
+        var user3 = list.get(2);
+        Assertions.assertNotNull(user3);
+
+        Assertions.assertTrue(list.stream().allMatch(User::isEnabled));
     }
 }
