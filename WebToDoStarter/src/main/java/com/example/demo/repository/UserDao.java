@@ -28,6 +28,11 @@ public interface UserDao {
      */
     int insert(User user);
 
+    /**
+     * ユーザー情報を更新する
+     * @param user
+     * @return
+     */
     int update(User user);
 
     int deleteById(int id);

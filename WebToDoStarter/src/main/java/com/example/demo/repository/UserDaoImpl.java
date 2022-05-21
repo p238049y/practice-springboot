@@ -93,4 +93,10 @@ public class UserDaoImpl implements UserDao{
            return jdbcTemplate.update("INSERT INTO user " + " (username, email, password, enabled, authority_id, tempKey)" + "VALUES(?, ?, ?, ?, ?, ?)",
                    user.getUsername(), user.getEmail(), user.getPassword(), user.isEnabled(), user.getAuthorityId(), user.getTempKey());
     }
+
+    @Override
+    public int update(User user) {
+        return jdbcTemplate.update("UPDATE user " + "SET username = ?, email = ?, password = ?, enabled = ?, authority_id = ?, tempkey = ? " + "WHERE id = ?",
+                user.getUsername(), user.getEmail(), user.getPassword(), user.isEnabled(), user.getAuthorityId(), user.getTempKey(), user.getId());
+    }
 }
