@@ -8,6 +8,10 @@ public interface UserDao {
 
     List<User> findAll();
 
+    /**
+     * アクティブユーザー一覧を取得
+     * @return
+     */
     List<User> findActiveUsers();
 
     User findById(int id);
