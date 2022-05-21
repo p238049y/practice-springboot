@@ -6,6 +6,10 @@ import java.util.List;
 
 public interface UserDao {
 
+    /**
+     * ユーザー一覧の取得
+     * @return ユーザー一覧
+     */
     List<User> findAll();
 
     /**
