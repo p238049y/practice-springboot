@@ -21,6 +21,11 @@ public interface UserDao {
      */
     User findById(int id);
 
+    /**
+     * ユーザー情報を登録する
+     * @param user
+     * @return
+     */
     int insert(User user);
 
     int update(User user);
