@@ -14,6 +14,11 @@ public interface UserDao {
      */
     List<User> findActiveUsers();
 
+    /**
+     * IDから特定のユーザー情報を取得
+     * @param id
+     * @return
+     */
     User findById(int id);
 
     int insert(User user);

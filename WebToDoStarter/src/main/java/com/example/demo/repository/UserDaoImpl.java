@@ -67,4 +67,24 @@ public class UserDaoImpl implements UserDao{
 
         return list;
     }
+
+    @Override
+    public User findById(int id) {
+        String sql = "SELECT id, username, email, password, enabled, authority_id, tempKey,"
+                + "FROM" + "user"
+                + "WHERE id = ?";
+
+        Map<String, Object> result = jdbcTemplate.queryForMap(sql, id);
+
+        var user = new User();
+        user.setId((int)result.get("id"));
+        user.setUsername((String) result.get("username"));
+        user.setEmail((String)result.get("email"));
+        user.setPassword((String)result.get("password"));
+        user.setEnabled((boolean) result.get("enabled"));
+        user.setAuthorityId((String) result.get("authority_id"));
+        user.setTempKey((String)result.get("tempKey"));
+
+        return user;
+    }
 }
