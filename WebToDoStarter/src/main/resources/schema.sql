@@ -15,6 +15,12 @@ CREATE TABLE task (
   PRIMARY KEY (id)
 ) ;
 
+CREATE TABLE authority (
+  id varchar(50) NOT NULL,
+  order_seq int(5) NOT NULL,
+  PRIMARY KEY (id)
+);
+
 CREATE TABLE user (
   id int(11) NOT NULL AUTO_INCREMENT,
   username varchar(50) NOT NULL,
