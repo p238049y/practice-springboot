@@ -27,7 +27,7 @@ CREATE TABLE user (
   email varchar(70) NOT NULL,
   password varchar(60) NOT NULL,
   enabled tinyint(1) NOT NULL,
-  authority varchar(50) NOT NULL,
+  authority_id varchar(50) NOT NULL,
   tempkey varchar(255) DEFAULT NULL,
   PRIMARY KEY (id)
 );
