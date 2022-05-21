@@ -35,5 +35,10 @@ public interface UserDao {
      */
     int update(User user);
 
+    /**
+     * ユーザー情報を削除する
+     * @param id
+     * @return
+     */
     int deleteById(int id);
 }
