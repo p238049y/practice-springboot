@@ -6,12 +6,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringJUnitConfig
 @SpringBootTest
@@ -54,5 +54,25 @@ class UserDaoImplTest {
         Assertions.assertNotNull(user3);
 
         Assertions.assertTrue(list.stream().allMatch(User::isEnabled));
+    }
+
+    @Test
+    @DisplayName("findByIdのテスト(正常系)")
+    void findById_1() {
+        var user1 = userDao.findById(1);
+        Assertions.assertNotNull(user1);
+
+        Assertions.assertEquals("ユーザー1", user1.getUsername());
+        Assertions.assertEquals("user1@example.com", user1.getEmail());
+        Assertions.assertEquals("pass1", user1.getPassword());
+        Assertions.assertTrue(user1.isEnabled());
+        Assertions.assertEquals("USER", user1.getAuthorityId());
+        Assertions.assertEquals("key1", user1.getTempKey());
+    }
+
+    @Test
+    @DisplayName("findByIdのテスト(レコードが取得できない場合)")
+    void findById_2() {
+        Assertions.assertThrows(EmptyResultDataAccessException.class, () -> userDao.findById(0));
     }
 }
