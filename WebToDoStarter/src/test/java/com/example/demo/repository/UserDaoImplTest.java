@@ -75,4 +75,35 @@ class UserDaoImplTest {
     void findById_2() {
         Assertions.assertThrows(EmptyResultDataAccessException.class, () -> userDao.findById(0));
     }
+
+    @Test
+    @DisplayName("insertのテスト(正常系)")
+    void insert_1() {
+        var user = new User();
+        user.setUsername("ユーザーX");
+        user.setEmail("userx@example.com");
+        user.setPassword("passx");
+        user.setEnabled(true);
+        user.setAuthorityId("USER");
+        user.setTempKey("keyx");
+
+        var insertCount = userDao.insert(user);
+
+        Assertions.assertEquals(1, insertCount);
+
+        // 件数チェック
+        var list = userDao.findAll();
+
+        Assertions.assertEquals(5, list.size());
+
+        //　登録されたレコードの取得
+        var userX = list.get(4);
+
+        Assertions.assertEquals(user.getUsername(), userX.getUsername());
+        Assertions.assertEquals(user.getEmail(), userX.getEmail());
+        Assertions.assertEquals(user.getPassword(), userX.getPassword());
+        Assertions.assertEquals(user.isEnabled(), userX.isEnabled());
+        Assertions.assertEquals(user.getAuthorityId(), userX.getAuthorityId());
+        Assertions.assertEquals(user.getTempKey(), userX.getTempKey());
+    }
 }
