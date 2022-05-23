@@ -106,4 +106,46 @@ class UserDaoImplTest {
         Assertions.assertEquals(user.getAuthorityId(), userX.getAuthorityId());
         Assertions.assertEquals(user.getTempKey(), userX.getTempKey());
     }
+
+    @Test
+    @DisplayName("updateのテスト(正常系)")
+    void update_1() {
+        var user = new User();
+        user.setId(2);
+        user.setUsername("ユーザー2(NEW)");
+        user.setEmail("user2-new@example.com");
+        user.setPassword("pass2_new");
+        user.setEnabled(false);
+        user.setAuthorityId("ADMIN");
+        user.setTempKey("key2_new");
+
+        var updateCount = userDao.update(user);
+
+        Assertions.assertEquals(1, updateCount);
+
+        var user2 = userDao.findById(2);
+
+        // レコードの存在チェック
+        Assertions.assertNotNull(user2);
+
+        // 各カラムの値が正しくセットされているか(この書き方は良くない)
+        // Assertions.assertEquals(user, user2);
+
+        // 各カラムの値が正しくセットされているか
+        assertEquals(user.getUsername(), user2.getUsername());
+        assertEquals(user.getEmail(), user2.getEmail());
+        assertEquals(user.getPassword(), user2.getPassword());
+        assertEquals(user.isEnabled(), user2.isEnabled());
+        assertEquals(user.getAuthorityId(), user2.getAuthorityId());
+        assertEquals(user.getTempKey(), user2.getTempKey());
+    }
+
+    @Test
+    @DisplayName("updateのテスト(更新対象がない場合)")
+    void update_2() {
+        var user = new User();
+        user.setId(10);
+        var updateCount = userDao.update(user);
+        Assertions.assertEquals(0, updateCount);
+    }
 }
