@@ -148,4 +148,29 @@ class UserDaoImplTest {
         var updateCount = userDao.update(user);
         Assertions.assertEquals(0, updateCount);
     }
+
+    @Test
+    @DisplayName("deleteByIdのテスト(正常系)")
+    void deleteById_1() {
+
+        // ユーザー情報が削除できたか？
+        var deleteCount = userDao.deleteById(1);
+        Assertions.assertEquals(1, deleteCount);
+
+        var list = userDao.findAll();
+        Assertions.assertEquals(3, list.size());
+
+        Assertions.assertThrows(EmptyResultDataAccessException.class, () -> userDao.findById(1));
+    }
+
+    @Test
+    @DisplayName("deleteByIdのテスト(更新対象がない場合)")
+    void deleteById_2() {
+        // ユーザー情報が削除できたか？
+        var deleteCount = userDao.deleteById(10);
+        Assertions.assertEquals(0, deleteCount);
+
+        var list = userDao.findAll();
+        Assertions.assertEquals(4, list.size());
+    }
 }
