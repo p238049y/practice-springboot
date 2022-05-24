@@ -1,13 +1,17 @@
 package com.example.demo.repository;
 
+import com.example.demo.entity.Task;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+
+import java.util.Optional;
 
 @SpringJUnitConfig
 @SpringBootTest
@@ -31,5 +35,11 @@ class TaskDaoImplTest {
         // 各カラムの値が正しくセットされているか
         Assertions.assertEquals("サービスの自作", task2.getTitle());
         Assertions.assertEquals("マイクロサービスを作ってみる", task2.getDetail());
+    }
+    
+
+    @Test
+    void findByIdでレコードが取得できない場合(){
+        Assertions.assertThrows(EmptyResultDataAccessException.class, () -> taskDao.findById(10));
     }
 }
