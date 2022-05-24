@@ -17,18 +17,6 @@ class TaskDaoImplTest {
     @Autowired
     private TaskDaoImpl taskDao;
 
-//    @Test
-//    @DisplayName("findAllのテスト")
-//    void findAll() {
-//        var list = taskDao.findAll();
-//
-//        // 件数のチェック
-//        Assertions.assertEquals(2, list.size());
-//
-//        // ２件目のレコードの取得
-//        var task2 = list.get(2);
-//        Assertions.assertNotNull(task2);
-//    }
     @Test
     void findAllのテスト() {
         var list = taskDao.findAll();
