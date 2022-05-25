@@ -60,4 +60,14 @@ class TaskDaoImplTest {
 
         Assertions.assertEquals(3, list.size());
     }
+
+    @Test
+    void deleteByIdのテスト() {
+        taskDao.deleteById(1);
+        var list = taskDao.findAll();
+
+        Assertions.assertEquals(2, list.size());
+
+        Assertions.assertThrows(EmptyResultDataAccessException.class, () -> taskDao.findById(1));
+    }
 }
