@@ -11,6 +11,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @SpringJUnitConfig
@@ -36,10 +37,27 @@ class TaskDaoImplTest {
         Assertions.assertEquals("サービスの自作", task2.getTitle());
         Assertions.assertEquals("マイクロサービスを作ってみる", task2.getDetail());
     }
-    
+
 
     @Test
     void findByIdでレコードが取得できない場合(){
         Assertions.assertThrows(EmptyResultDataAccessException.class, () -> taskDao.findById(10));
+    }
+
+    @Test
+    void insertの正常系テスト(){
+        var task = new Task();
+
+        task.setUserId(1);
+        task.setTypeId(3);
+        task.setTitle("テストコードの作成");
+        task.setDetail("書いてみよう");
+        task.setDeadline(LocalDateTime.parse("2021-07-07 15:00:00"));
+
+        taskDao.insert(task);
+
+        var list = taskDao.findAll();
+
+        Assertions.assertEquals(3, list.size());
     }
 }
