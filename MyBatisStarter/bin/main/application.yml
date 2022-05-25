@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    local-cache-scope: statement
+  lazy-initialization: false
+#  type-handlers-package: com.example.springmybatis.da.typehandler
+
+logging:
+  level:
+    com.example.springmybatis.da.mapper: debug

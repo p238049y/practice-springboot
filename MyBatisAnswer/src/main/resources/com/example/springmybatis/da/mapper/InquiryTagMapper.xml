@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springmybatis.da.mapper.InquiryTagMapper">
+    <!-- TODO ハンズオン 1-2 resultMapを定義 -->
+    <resultMap id="Base_Result_Map" type="com.example.springmybatis.da.entity.InquiryTag">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="inquiry_id" property="inquiryId" jdbcType="INTEGER"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="created" property="created" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="selectTagsByInquiryId" parameterType="int" resultMap="Base_Result_Map">
+        select id, inquiry_id, description, created
+        from inquiry_tag
+        where inquiry_id = #{inquiryId}
+        order by id
+    </select>
+
+    <!-- TODO ハンズオン 4-2 resultMapタグを定義 -->
+    <resultMap id="View_Result_Map" type="com.example.springmybatis.da.entity.InquiryTagView" extends="Base_Result_Map" >
+        <association
+                property="inquiry"
+                javaType="com.example.springmybatis.da.entity.Inquiry"
+                select="com.example.springmybatis.da.mapper.InquiryMapper.find"
+                column="inquiry_id" />
+    </resultMap>
+
+    <!-- TODO ハンズオン 4-6 resultMapタグを定義 -->
+    <resultMap id="View2_Result_Map" type="com.example.springmybatis.da.entity.InquiryTagView" extends="Base_Result_Map" >
+        <association
+                property="inquiry"
+                resultMap="com.example.springmybatis.da.mapper.InquiryMapper.Base_Result_Map"
+                columnPrefix="i_" />
+    </resultMap>
+
+    <!-- TODO ハンズオン 1-3 selectを定義 -->
+    <select id="find" parameterType="int" resultMap="Base_Result_Map">
+        select id, inquiry_id, description, created
+        from inquiry_tag
+        where id = #{id}
+    </select>
+
+    <!-- TODO ハンズオン 2-2 selectタグを定義 -->
+    <select id="select" parameterType="com.example.springmybatis.da.query.InquiryTagSelectQuery" resultMap="Base_Result_Map">
+        select id, inquiry_id, description, created
+        from inquiry_tag
+        <where>
+            <if test="inquiryIds != null and !inquiryIds.isEmpty()">
+                and inquiry_id in
+                <foreach item="inquiryId" collection="inquiryIds" open="(" separator="," close=")">
+                    #{inquiryId}
+                </foreach>
+            </if>
+            <if test="description != null">
+                and description like #{description}
+            </if>
+            <if test="fromCreated != null">
+                and created &gt;= #{fromCreated}
+            </if>
+            <if test="toCreated != null">
+                and created &lt;= #{toCreated}
+            </if>
+        </where>
+        <trim prefix="order by">${orderBy}</trim>
+    </select>
+
+    <!-- TODO ハンズオン 3-2-1 insertタグを定義 -->
+    <insert id="insert" parameterType="com.example.springmybatis.da.entity.InquiryTag" keyProperty="id" useGeneratedKeys="true">
+        insert into inquiry_tag (inquiry_id, description, created)
+        values (#{inquiryId}, #{description}, #{created})
+    </insert>
+
+    <!-- TODO ハンズオン 3-2-2 updateタグを定義 -->
+    <update id="update" parameterType="com.example.springmybatis.da.entity.InquiryTag">
+        update inquiry_tag
+        <set>
+            inquiry_id = #{inquiryId},
+            description = #{description},
+            created = #{created},
+        </set>
+        where id = #{id}
+    </update>
+
+    <!-- TODO ハンズオン 3-2-3 deleteタグを定義 -->
+    <delete id="delete" parameterType="int">
+        delete from inquiry_tag
+        where id = #{id}
+    </delete>
+
+    <!-- TODO ハンズオン 4-3 selectタグを定義 -->
+
+    <select id="findView" parameterType="int" resultMap="View_Result_Map">
+        select id, inquiry_id, description, created
+        from inquiry_tag
+        where id = #{id}
+    </select>
+
+    <!-- TODO ハンズオン 4-7 selectタグを定義 -->
+    <select id="findView2" parameterType="int" resultMap="View2_Result_Map">
+        select
+        t.id, t.inquiry_id, t.description, t.created,
+        i.id as i_id, i.user_id as i_userId, i.contents as i_contents, i.invalid as i_invalid, i.created as i_created
+        from inquiry_tag t
+        inner join inquiry i on t.inquiry_id = i.id
+        where t.id = #{id}
+    </select>
+</mapper>

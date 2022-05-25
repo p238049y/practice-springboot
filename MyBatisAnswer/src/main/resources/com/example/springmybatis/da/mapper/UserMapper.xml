@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springmybatis.da.mapper.UserMapper">
+
+    <resultMap id="Base_Result_Map" type="com.example.springmybatis.da.entity.User">
+        <!-- 基本のマッピングルールで対応できる場合は省略可能 -->
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="created" property="created" jdbcType="TIMESTAMP"/>
+        <result column="memo" property="memo" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- TODO ハンズオン 5-2 resultMapタグを定義 -->
+
+    <resultMap id="View_Result_Map" type="com.example.springmybatis.da.entity.UserView" extends="Base_Result_Map" >
+        <collection
+                property="inquiries"
+                ofType="com.example.springmybatis.da.entity.Inquiry"
+                select="selectInquiriesByUserId"
+                column="id" />
+    </resultMap>
+
+    <!-- TODO ハンズオン 5-7 resultMapタグを定義 -->
+    <resultMap id="View2_Result_Map" type="com.example.springmybatis.da.entity.UserView" extends="Base_Result_Map" >
+        <collection
+                property="inquiries"
+                ofType="com.example.springmybatis.da.entity.Inquiry"
+                resultMap="com.example.springmybatis.da.mapper.InquiryMapper.Base_Result_Map"
+                columnPrefix="i_"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, user_name, email, created, memo
+    </sql>
+
+    <select id="find" parameterType="int" resultMap="Base_Result_Map">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where id = #{id}
+    </select>
+    <select id="findForUpdate" parameterType="int" resultMap="Base_Result_Map">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where id = #{id}
+        for update
+    </select>
+
+    <!-- keyProperty, useGeneratedKeysで自動採番キーが取得できる  -->
+    <insert id="insert" parameterType="com.example.springmybatis.da.entity.User" keyProperty="id" useGeneratedKeys="true">
+        insert into user (user_name, email, created, memo)
+        values (#{userName}, #{email}, #{created}, #{memo})
+    </insert>
+
+    <insert id="batchInsert" parameterType="com.example.springmybatis.da.entity.User" keyProperty="id" useGeneratedKeys="true">
+        insert into user (user_name, email, created, memo) values
+        <foreach item="user" collection="users" separator=",">
+            (#{user.userName}, #{user.email}, #{user.created}, #{user.memo})
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="com.example.springmybatis.da.entity.User">
+        update user
+        <set>
+            user_name = #{userName},
+            email = #{email},
+            <if test="memo != null">
+                memo = #{memo},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from user
+        where id = #{id}
+    </delete>
+
+    <select id="count" resultType="long">
+        select count(id)
+        from user
+    </select>
+
+    <select id="selectByEmailAndInvalid" parameterType="map" resultMap="Base_Result_Map">
+        select id, user_name, email, created, memo
+        from user
+        <where>
+            <if test="email != null">
+                and email like #{email}
+            </if>
+            <if test="memo != null">
+                and memo like #{memo}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectAll" resultMap="Base_Result_Map">
+        select id, user_name, email, created, memo
+        from user
+        order by id
+    </select>
+
+    <select id="select" parameterType="com.example.springmybatis.da.query.UserSelectQuery" resultMap="Base_Result_Map">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        <where>
+            <if test="ids != null and !ids.isEmpty()">
+                and id in
+                <foreach item="id" index="index" collection="ids" open="(" separator="," close=")">
+                    #{id}
+                </foreach>
+            </if>
+            <if test="userName != null">
+                and user_name like #{userName}
+            </if>
+            <if test="email != null">
+                and email like #{email}
+            </if>
+            <if test="memo != null">
+                and memo like #{memo}
+            </if>
+        </where>
+    </select>
+
+    <!-- TODO ハンズオン 5-3 selectタグを定義(id: selectAllView) -->
+    <select id="selectAllView" resultMap="View_Result_Map">
+        select id, user_name, email, created, memo
+        from user
+        order by id
+    </select>
+
+    <!-- TODO ハンズオン 5-4 selectタグを定義(id: selectInquiriesByUserId) -->
+    <select id="selectInquiriesByUserId" parameterType="int" resultMap="Base_Result_Map">
+        select
+        id, user_id, contents, invalid, created
+        from inquiry
+        where user_id = #{userId}
+        order by id desc
+    </select>
+
+    <!-- TODO ハンズオン 5-8 selectタグを定義 -->
+    <select id="selectAllView2" resultMap="View2_Result_Map">
+        select
+        u.id, u.user_name, u.email, u.created, u.memo,
+        i.id as i_id, i.user_id as i_userId, i.contents as i_contents, i.invalid as i_invalid, i.created as i_created
+        from user u
+        left join inquiry i on u.id = i.user_id
+        order by u.id, i.id desc
+    </select>
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springmybatis.da.mapper.InquiryMessageMapper">
+    <resultMap id="Base_Result_Map" type="com.example.springmybatis.da.entity.InquiryMessage">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="inquiry_id" property="inquiryId" jdbcType="INTEGER"/>
+        <result column="message" property="message" jdbcType="CLOB"/>
+        <result column="created" property="created" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="selectMessagesByInquiryId" parameterType="int" resultMap="Base_Result_Map">
+        select id, inquiry_id, message, created
+        from inquiry_message
+        where inquiry_id = #{inquiryId}
+        order by id
+    </select>
+
+</mapper>

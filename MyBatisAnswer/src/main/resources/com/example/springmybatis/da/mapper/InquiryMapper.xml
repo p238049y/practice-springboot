@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springmybatis.da.mapper.InquiryMapper">
+
+    <resultMap id="Base_Result_Map" type="com.example.springmybatis.da.entity.Inquiry">
+        <!-- 基本のマッピングルールで対応できる場合は省略可能 -->
+
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <!-- javaでのカラム名を上書き -->
+        <result column="user_id" property="sendUserId" jdbcType="INTEGER"/>
+        <result column="contents" property="contents" jdbcType="VARCHAR"/>
+        <result column="invalid" property="invalid" jdbcType="CHAR"/>
+        <result column="created" property="created" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <resultMap id="View_Result_Map" type="com.example.springmybatis.da.entity.InquiryView" extends="Base_Result_Map" >
+        <association
+                property="user"
+                javaType="com.example.springmybatis.da.entity.User"
+                select="com.example.springmybatis.da.mapper.UserMapper.find"
+                column="user_id" />
+    </resultMap>
+
+    <resultMap id="View2_Result_Map" type="com.example.springmybatis.da.entity.InquiryView" extends="Base_Result_Map" >
+        <association
+                property="user"
+                resultMap="com.example.springmybatis.da.mapper.UserMapper.Base_Result_Map"
+                columnPrefix="u_"/>
+    </resultMap>
+
+    <resultMap id="ViewN_Result_Map" type="com.example.springmybatis.da.entity.InquiryView" extends="Base_Result_Map" >
+        <collection
+                property="tags"
+                ofType="com.example.springmybatis.da.entity.InquiryTag"
+                select="com.example.springmybatis.da.mapper.InquiryTagMapper.selectTagsByInquiryId"
+                column="id" />
+        <collection
+                property="messages"
+                ofType="com.example.springmybatis.da.entity.InquiryMessage"
+                select="com.example.springmybatis.da.mapper.InquiryMessageMapper.selectMessagesByInquiryId"
+                column="id" />
+    </resultMap>
+
+    <resultMap id="ViewN2_Result_Map" type="com.example.springmybatis.da.entity.InquiryView" extends="Base_Result_Map" >
+        <collection
+                property="tags"
+                javaType="com.example.springmybatis.da.entity.InquiryTag"
+                columnPrefix="t_">
+            <id column="id" property="id" jdbcType="INTEGER"/>
+            <result column="inquiry_id" property="inquiryId" jdbcType="INTEGER"/>
+            <result column="description" property="description" jdbcType="VARCHAR"/>
+            <result column="created" property="created" jdbcType="TIMESTAMP"/>
+        </collection>
+        <collection
+                property="messages"
+                ofType="com.example.springmybatis.da.entity.InquiryMessage"
+                resultMap="com.example.springmybatis.da.mapper.InquiryMessageMapper.Base_Result_Map"
+                columnPrefix="m_" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, user_id, contents, invalid, created
+    </sql>
+
+    <select id="find" parameterType="int" resultMap="Base_Result_Map">
+        select
+        <include refid="Base_Column_List"/>
+        from inquiry
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectView" parameterType="com.example.springmybatis.da.query.InquiryViewSelectQuery" resultMap="View_Result_Map">
+        select
+        id, user_id, contents, invalid, created
+        from inquiry
+    </select>
+
+    <select id="selectView2" parameterType="com.example.springmybatis.da.query.InquiryViewSelectQuery" resultMap="View2_Result_Map">
+        select
+        i.id, i.user_id, i.contents, i.invalid, i.created,
+        u.id as u_id, u.user_name as u_user_name, u.email as u_email, u.created as u_created,
+        from inquiry i
+        inner join user u on i.user_id = u.id
+        order by i.id, t.id
+    </select>
+
+
+    <select id="selectViewN" parameterType="com.example.springmybatis.da.query.InquiryViewSelectQuery" resultMap="ViewN_Result_Map">
+        select
+        id, user_id, contents, invalid, created
+        from inquiry
+    </select>
+
+    <select id="selectViewN2" parameterType="com.example.springmybatis.da.query.InquiryViewSelectQuery" resultMap="ViewN2_Result_Map">
+        select
+        i.id, i.user_id, i.contents, i.invalid, i.created,
+        t.id as t_id, t.inquiry_id as t_inquiry_id, t.description as t_description, t.created as t_created,
+        m.id as m_id, m.inquiry_id as m_inquiry_id, m.message as m_message, m.created as m_created
+        from inquiry i
+        left join inquiry_tag t on i.id = t.inquiry_id
+        left join inquiry_message m on i.id = m.inquiry_id
+        order by i.id, t.id
+    </select>
+
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springmybatis.da.mapper.SomeTableMapper">
+
+    <resultMap id="Base_Result_Map" type="com.example.springmybatis.da.entity.SomeTable">
+        <!-- CHARを変換(+: true, -: false) -->
+        <result column="string_boolean" property="stringBoolean" jdbcType="CHAR" typeHandler="com.example.springmybatis.da.typehandler.PlusMinusBooleanTypeHandler"/>
+        <!-- TODO ハンズオン 7-2 resultタグを追加し、typeHanderを設定 -->
+    </resultMap>
+
+    <select id="select" parameterType="com.example.springmybatis.da.query.UserSelectQuery" resultMap="Base_Result_Map">
+        select id, number_date, string_integer, string_boolean, string_list
+        from some_table
+        <where>
+            <if test="fromNumberDate != null">
+                number_date &gt;= #{fromNumberDate}
+            </if>
+            <if test="toNumberDate != null">
+                number_date &lt;= #{toNumberDate}
+            </if>
+            <if test="stringInteger != null">
+                number_date = #{stringInteger}
+            </if>
+            <if test="stringBoolean != null">
+                string_boolean = #{stringBoolean,typeHandler=com.example.springmybatis.da.typehandler.PlusMinusBooleanTypeHandler}
+            </if>
+        </where>
+    </select>
+
+</mapper>
