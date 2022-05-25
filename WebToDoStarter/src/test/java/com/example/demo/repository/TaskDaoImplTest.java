@@ -70,4 +70,12 @@ class TaskDaoImplTest {
 
         Assertions.assertThrows(EmptyResultDataAccessException.class, () -> taskDao.findById(1));
     }
+
+    @Test
+    void deleteByIdの対象がない場合のテスト(){
+        taskDao.deleteById(10);
+        var list = taskDao.findAll();
+
+        Assertions.assertEquals(2, list.size());
+    }
 }
