@@ -13,6 +13,7 @@ import com.example.springmybatis.da.query.InquiryTagSelectQuery;
 public interface InquiryTagMapper {
 
     // TODO ハンズオン 1-1 findメソッドを定義
+    InquiryTag find(int id);
 
     // TODO ハンズオン 2-1 ページングができるようにメソッドの引数を変更する
     List<InquiryTag> select(InquiryTagSelectQuery query);
