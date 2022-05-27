@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 class InquiryTagMapperTest {
@@ -16,11 +19,11 @@ class InquiryTagMapperTest {
     @Test
     void find() {
         // TODO ハンズオン 1-4 コメントアウトを解除してテストを実行
-//        var inquiryTag = inquiryTagMapper.find(1);
-//
-//        assertNotNull(inquiryTag);
-//
-//        assertEquals("問合せ", inquiryTag.getDescription());
+        var inquiryTag = inquiryTagMapper.find(1);
+
+        assertNotNull(inquiryTag);
+
+        assertEquals("問合せ", inquiryTag.getDescription());
 
     }
 
