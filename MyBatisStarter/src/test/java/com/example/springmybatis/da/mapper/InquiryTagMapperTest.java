@@ -1,5 +1,6 @@
 package com.example.springmybatis.da.mapper;
 
+import com.example.springmybatis.da.entity.InquiryTag;
 import com.example.springmybatis.da.query.InquiryTagSelectQuery;
 import org.apache.ibatis.session.RowBounds;
 import org.junit.jupiter.api.Test;
@@ -8,8 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.time.LocalDateTime;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -52,30 +54,30 @@ class InquiryTagMapperTest {
 	@Test
     void insertUpdateDelete() {
         // TODO ハンズオン 3-3 コメントアウトを解除してテストを実行
-//        var inquiryTag = new InquiryTag();
-//        inquiryTag.setInquiryId(1);
-//        inquiryTag.setDescription("保存");
-//        inquiryTag.setCreated(LocalDateTime.now());
-//
-//        inquiryTagMapper.insert(inquiryTag);
-//
-//        assertEquals(8, inquiryTag.getId());
-//
-//        inquiryTag.setDescription("保管");
-//
-//        inquiryTagMapper.update(inquiryTag);
-//
-//        var updatedInquiryTag = inquiryTagMapper.find(8);
-//
-//        assertNotNull(updatedInquiryTag);
-//
-//        assertEquals(updatedInquiryTag.getDescription(), inquiryTag.getDescription());
-//
-//        inquiryTagMapper.delete(8);
-//
-//        var deletedInquiryTag = inquiryTagMapper.find(8);
-//
-//        assertNull(deletedInquiryTag);
+        var inquiryTag = new InquiryTag();
+        inquiryTag.setInquiryId(1);
+        inquiryTag.setDescription("保存");
+        inquiryTag.setCreated(LocalDateTime.now());
+
+        inquiryTagMapper.insert(inquiryTag);
+
+        assertEquals(8, inquiryTag.getId());
+
+        inquiryTag.setDescription("保管");
+
+        inquiryTagMapper.update(inquiryTag);
+
+        var updatedInquiryTag = inquiryTagMapper.find(8);
+
+        assertNotNull(updatedInquiryTag);
+
+        assertEquals(updatedInquiryTag.getDescription(), inquiryTag.getDescription());
+
+        inquiryTagMapper.delete(8);
+
+        var deletedInquiryTag = inquiryTagMapper.find(8);
+
+        assertNull(deletedInquiryTag);
 
     }
 
