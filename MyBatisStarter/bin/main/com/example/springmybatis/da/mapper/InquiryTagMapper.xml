@@ -65,9 +65,16 @@
         VALUES (#{inquiryId}, #{description}, #{created})
     </insert>
 
-
     <!-- TODO ハンズオン 3-2-2 updateタグを定義 -->
-
+    <update id="update" parameterType="com.example.springmybatis.da.entity.InquiryTag">
+        UPDATE inquiry_tag
+        <set>
+            inquiry_id = #{inquiryId},
+            description = #{description},
+            created = #{created}
+        </set>
+        WHERE id = #{id}
+    </update>
 
     <!-- TODO ハンズオン 3-2-3 deleteタグを定義 -->
 

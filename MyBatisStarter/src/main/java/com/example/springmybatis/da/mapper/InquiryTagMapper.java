@@ -23,6 +23,7 @@ public interface InquiryTagMapper {
     void insert(InquiryTag inquiryTag);
 
     // TODO ハンズオン 3-1-2 updateメソッドを定義
+    void update(InquiryTag inquiryTag);
 
     // TODO ハンズオン 3-1-3 deleteメソッドを定義
 
