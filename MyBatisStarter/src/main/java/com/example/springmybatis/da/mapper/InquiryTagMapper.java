@@ -20,6 +20,7 @@ public interface InquiryTagMapper {
     List<InquiryTag> select(InquiryTagSelectQuery query, RowBounds rowBounds);
 
     // TODO ハンズオン 3-1-1 insertメソッドを定義
+    void insert(InquiryTag inquiryTag);
 
     // TODO ハンズオン 3-1-2 updateメソッドを定義
 
