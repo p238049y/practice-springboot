@@ -26,6 +26,7 @@ public interface InquiryTagMapper {
     void update(InquiryTag inquiryTag);
 
     // TODO ハンズオン 3-1-3 deleteメソッドを定義
+    void delete(int id);
 
      // TODO ハンズオン 4-1 findViewメソッドを定義
 
