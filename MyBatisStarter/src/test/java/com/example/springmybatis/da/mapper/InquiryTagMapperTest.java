@@ -1,5 +1,7 @@
 package com.example.springmybatis.da.mapper;
 
+import com.example.springmybatis.da.query.InquiryTagSelectQuery;
+import org.apache.ibatis.session.RowBounds;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,20 +32,20 @@ class InquiryTagMapperTest {
     @Test
     void select() {
         // TODO ハンズオン 2-3 コメントアウトを解除してテストを実行
-//        var query = new InquiryTagSelectQuery();
-//
-//        query.setDescription("問合せ");
-//
-//        query.addOrderCondition(OrderByField.INQUIRY_ID, SortOrder.DESC);
-//        query.addOrderCondition(OrderByField.ID, SortOrder.ASC);
-//
-//        var list = inquiryTagMapper.select(query, new RowBounds(0, 100));
-//
-//        assertEquals(2, list.size());
-//
-//        var inquiryTag = list.get(0);
-//
-//        assertEquals(7, inquiryTag.getId());
+        var query = new InquiryTagSelectQuery();
+
+        query.setDescription("問合せ");
+
+        query.addOrderCondition(InquiryTagSelectQuery.OrderByField.INQUIRY_ID, InquiryTagSelectQuery.SortOrder.DESC);
+        query.addOrderCondition(InquiryTagSelectQuery.OrderByField.ID, InquiryTagSelectQuery.SortOrder.ASC);
+
+        var list = inquiryTagMapper.select(query, new RowBounds(0, 100));
+
+        assertEquals(2, list.size());
+
+        var inquiryTag = list.get(0);
+
+        assertEquals(7, inquiryTag.getId());
     }
 
 
