@@ -18,6 +18,13 @@
     </select>
 
     <!-- TODO ハンズオン 4-2 resultMapタグを定義 -->
+    <resultMap id="View_Result_Map" type="com.example.springmybatis.da.entity.InquiryTagView" extends="Base_Result_Map">
+        <association
+                property="inquiry"
+                javaType="com.example.springmybatis.da.entity.Inquiry"
+                select="com.example.springmybatis.da.mapper.InquiryMapper.find"
+                column="inquiry_id" />
+    </resultMap>
 
 
     <!-- TODO ハンズオン 4-6 resultMapタグを定義 -->
