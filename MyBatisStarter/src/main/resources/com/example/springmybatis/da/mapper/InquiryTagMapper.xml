@@ -61,7 +61,10 @@
 
 
     <!-- TODO ハンズオン 3-2-1 insertタグを定義 -->
-
+    <insert id="insert" parameterType="com.example.springmybatis.da.entity.InquiryTag" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO inquiry_tag(inquiry_id, description, created)
+        VALUES (#{inquiryId}, #{description}, #{created})
+    </insert>
 
     <!-- TODO ハンズオン 3-2-2 updateタグを定義 -->
 
