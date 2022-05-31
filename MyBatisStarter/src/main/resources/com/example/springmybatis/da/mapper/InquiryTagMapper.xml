@@ -34,6 +34,30 @@
 
 
     <!-- TODO ハンズオン 2-2 selectタグを定義 -->
+    <select id="select" parameterType="com.example.springmybatis.da.query.InquiryTagSelectQuery" resultMap="Base_Result_Map">
+        SELECT
+        id, inquiry_id, description, created
+        FROM
+        inquiry_tag
+        <where>
+            <if test="inquiryIds != null and !inquiryIds.isEmpty()">
+                and inquiry_id in
+                <foreach item="inquiryId" collection="inquiryIds" open="(" separator="," close=")">
+                    #{inquiryId}
+                </foreach>
+            </if>
+            <if test="description != null">
+                and description like #{description}
+            </if>
+            <if test="fromCreated != null">
+                and created &gt; = #{formCreated}
+            </if>
+            <if test="toCreated != null">
+                and created &lt; = #{toCreated}
+            </if>
+        </where>
+        <trim prefix="order by">$[orderBy]</trim>
+    </select>
 
 
     <!-- TODO ハンズオン 3-2-1 insertタグを定義 -->
