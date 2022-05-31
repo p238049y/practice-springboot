@@ -23,6 +23,14 @@
 
 
     <!-- TODO ハンズオン 1-3 selectを定義 -->
+    <select id="find" parameterType="int" resultMap="Base_Result_Map">
+        SELECT
+        id, inquiry_id, description, created
+        FROM
+        inquiry_tag
+        WHERE
+        id = #{id}
+    </select>
 
 
     <!-- TODO ハンズオン 2-2 selectタグを定義 -->
