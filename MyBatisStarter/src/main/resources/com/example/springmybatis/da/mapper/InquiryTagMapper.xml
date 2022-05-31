@@ -56,7 +56,7 @@
                 and created &lt; = #{toCreated}
             </if>
         </where>
-        <trim prefix="order by">$[orderBy]</trim>
+        <trim prefix="order by">${orderBy}</trim>
     </select>
 
 
