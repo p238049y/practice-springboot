@@ -79,6 +79,10 @@
 
 
     <!-- TODO ハンズオン 3-2-3 deleteタグを定義 -->
+    <delete id="delete" parameterType="int">
+        DELETE FROM inquiry_tag
+        WHERE id = #{id}
+    </delete>
 
 
     <!-- TODO ハンズオン 4-3 selectタグを定義 -->
