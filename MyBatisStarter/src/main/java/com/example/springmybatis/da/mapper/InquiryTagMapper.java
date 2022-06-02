@@ -33,6 +33,6 @@ public interface InquiryTagMapper {
     InquiryTagView findView(int id);
 
     // TODO ハンズオン 4-5 findView2メソッドを定義
-
+    InquiryTagView findView2(int id);
 
 }

@@ -89,6 +89,12 @@
 
 
     <!-- TODO ハンズオン 4-7 selectタグを定義 -->
-
-
+    <select id="findView2" parameterType="int" resultMap="View2_Result_Map">
+        SELECT
+            tid
+        FROM
+            inquiry_tag
+        WHERE
+            id = #{id}
+    </select>
 </mapper>
