@@ -3,6 +3,7 @@ package com.example.springmybatis.da.mapper;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.springmybatis.da.entity.UserView;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
@@ -40,6 +41,7 @@ public interface UserMapper {
     List<User> select(UserSelectQuery query, RowBounds rowBounds);
 
     // TODO ハンズオン 5-1 selectAllViewメソッドを定義
+    List<UserView> selectAllView();
 
     // TODO ハンズオン 5-6 selectAllView2メソッドを定義
 
