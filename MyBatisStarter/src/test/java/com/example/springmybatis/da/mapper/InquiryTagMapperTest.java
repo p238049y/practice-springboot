@@ -98,14 +98,14 @@ class InquiryTagMapperTest {
 	@Test
     void findView2() {
         // TODO ハンズオン 4-8 コメントアウトを解除してテストを実行
-//        var inquiryTagView = inquiryTagMapper.findView2(1);
-//
-//        assertNotNull(inquiryTagView);
-//
-//        var inquiry = inquiryTagView.getInquiry();
-//
-//        assertNotNull(inquiry);
-//
-//        assertEquals("Contents1", inquiry.getContents());
+        var inquiryTagView = inquiryTagMapper.findView2(1);
+
+        assertNotNull(inquiryTagView);
+
+        var inquiry = inquiryTagView.getInquiry();
+
+        assertNotNull(inquiry);
+
+        assertEquals("Contents1", inquiry.getContents());
     }
 }
