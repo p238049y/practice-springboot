@@ -111,7 +111,7 @@
     <!-- TODO ハンズオン 4-7 selectタグを定義 -->
     <select id="findView2" parameterType="int" resultMap="View2_Result_Map">
         SELECT
-            t.id, t.inquiry, t.description, t.created,
+            t.id, t.inquiry_id, t.description, t.created,
             i.id as i_id, i.user_id as i_userId, i.contents as i_contents, i.invalid as i_invalid, i.created as i_created
         FROM
             inquiry_tag t INNER JOIN inquiry i on t.inquiry_id = i.id
