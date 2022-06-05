@@ -126,6 +126,15 @@
         ORDER BY id
     </select>
     <!-- TODO ハンズオン 5-4 selectタグを定義(id: selectInquiriesByUserId) -->
+    <select id="selectInquiriesByUserId" parameterType="int" resultMap="com.example.springmybatis.da.mapper.InquiryMapper.Base_Result_Map">
+        SELECT
+            *
+        FROM
+            inquiry
+        WHERE
+            user_id = #{userId}
+        ORDER BY id desc
+    </select>
 
     <!-- TODO ハンズオン 5-8 selectタグを定義 -->
 
