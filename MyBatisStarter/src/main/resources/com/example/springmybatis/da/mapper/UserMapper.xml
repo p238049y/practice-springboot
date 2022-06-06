@@ -21,11 +21,11 @@
     </resultMap>
 
     <!-- TODO ハンズオン 5-7 resultMapタグを定義 -->
-    <resultMap id="View2_Result_Map" type="com.example.springmybatis.da.entity.UserView" extends="Base_Result_Map">
+    <resultMap id="View2_Result_Map" type="com.example.springmybatis.da.entity.UserView" extends="Base_Result_Map" >
         <collection
                 property="inquiries"
                 ofType="com.example.springmybatis.da.entity.Inquiry"
-                resultMap="com.example.springmybatis.da.mapper.InquiryMessageMapper.Base_Result_Map"
+                resultMap="com.example.springmybatis.da.mapper.InquiryMapper.Base_Result_Map"
                 columnPrefix="i_"/>
     </resultMap>
 
