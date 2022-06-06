@@ -38,20 +38,20 @@ class UserMapperTest {
     @Test
     public void selectAllView2() {
         // TODO ハンズオン 5-9 コメントアウトを解除してテストを実行
-//        var list = userMapper.selectAllView2();
-//
-//        assertEquals(2, list.size());
-//
-//        var userView = list.get(0);
-//
-//        assertEquals("User 1", userView.getUserName());
-//
-//        var inquiries = userView.getInquiries();
-//
-//        assertEquals(2, inquiries.size());
-//
-//        var inquiry = inquiries.get(0);
-//
-//        assertEquals(3, inquiry.getId());
+        var list = userMapper.selectAllView2();
+
+        assertEquals(2, list.size());
+
+        var userView = list.get(0);
+
+        assertEquals("User 1", userView.getUserName());
+
+        var inquiries = userView.getInquiries();
+
+        assertEquals(2, inquiries.size());
+
+        var inquiry = inquiries.get(0);
+
+        assertEquals(3, inquiry.getId());
     }
 }
