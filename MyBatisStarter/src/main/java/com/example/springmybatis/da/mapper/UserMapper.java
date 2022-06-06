@@ -44,5 +44,5 @@ public interface UserMapper {
     List<UserView> selectAllView();
 
     // TODO ハンズオン 5-6 selectAllView2メソッドを定義
-
+    List<UserView> selectAllView2();
 }
