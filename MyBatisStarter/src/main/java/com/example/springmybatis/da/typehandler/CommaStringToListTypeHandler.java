@@ -21,17 +21,17 @@ public class CommaStringToListTypeHandler extends BaseTypeHandler<List<String>> 
 
     @Override
     public List<String> getNullableResult(ResultSet rs, String columnName) throws SQLException {
-        return null;
+        return doGetResult(rs.getString(columnName));
     }
 
     @Override
     public List<String> getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
-        return null;
+        return doGetResult(rs.getString(columnIndex));
     }
 
     @Override
     public List<String> getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
-        return null;
+        return doGetResult(cs.getString(columnIndex));
     }
 
     private List<String> doGetResult(String value) {
