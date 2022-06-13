@@ -6,6 +6,7 @@
         <!-- CHARを変換(+: true, -: false) -->
         <result column="string_boolean" property="stringBoolean" jdbcType="CHAR" typeHandler="com.example.springmybatis.da.typehandler.PlusMinusBooleanTypeHandler"/>
         <!-- TODO ハンズオン 7-2 resultタグを追加し、typeHanderを設定 -->
+        <result column="string_list" property="stringList" jdbcType="CHAR" typeHandler="com.example.springmybatis.da.typehandler.CommaStringToListTypeHandler" />
     </resultMap>
 
     <select id="select" parameterType="com.example.springmybatis.da.query.UserSelectQuery" resultMap="Base_Result_Map">
